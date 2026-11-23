@@ -1,0 +1,61 @@
+// Per-region planting plan. Each district gets its own vegetation and props;
+// nothing here is shared between regions. Heights are world units.
+// Sources (all CC0): Kenney Nature/Pirate/Fantasy Town kits, KayKit Forest,
+// Quaternius Stylized Nature MegaKit (standard). See assets/zone-flora/*/LICENSE.txt.
+const K='kenney-nature/',P='kenney-pirate/',T='kenney-town/',Y='kaykit/',Q='quaternius/';
+export const ZONE_FLORA={
+ dock:{label:'Drift Dock',ground:'any',items:[
+  {file:P+'palm-bend.glb',count:14,h:[2.6,3.6],clear:2.3,cluster:3},
+  {file:P+'palm-detailed-straight.glb',count:10,h:[3,4],clear:2.3,cluster:2},
+  {file:K+'tree_palmShort.glb',count:8,h:[1.6,2.2],clear:2.1,cluster:2},
+  {file:P+'patch-sand-foliage.glb',count:16,h:[.25,.4],clear:1.9,flat:.6},
+  {file:P+'grass-plant.glb',count:30,h:[.35,.6],clear:1.8,flat:.5},
+  {file:P+'rocks-sand-a.glb',count:10,h:[.35,.6],clear:1.9},
+  {file:P+'barrel.glb',count:10,h:[.45,.55],clear:1.8,cluster:3},
+  {file:P+'crate.glb',count:8,h:[.4,.5],clear:1.8,cluster:3},
+  {file:P+'crate-bottles.glb',count:4,h:[.45,.5],clear:1.8},
+  {file:P+'flag-pennant.glb',count:4,h:[1.6,1.9],clear:2}]},
+ mossfall:{label:'Mossfall',ground:'green',items:[
+  {file:Q+'Plant_1_Big.glb',count:34,h:[.9,1.5],clear:1.9,flat:.5,cluster:3},
+  {file:Q+'Plant_7_Big.glb',count:26,h:[.8,1.3],clear:1.9,flat:.5,cluster:3},
+  {file:Q+'Fern_1.glb',count:50,h:[.5,.8],clear:1.8,flat:.45,cluster:4},
+  {file:Q+'Mushroom_Laetiporus.glb',count:12,h:[.3,.5],clear:1.8},
+  {file:K+'mushroom_redTall.glb',count:10,h:[.5,.8],clear:1.8,cluster:3},
+  {file:K+'tree_palmDetailedShort.glb',count:12,h:[2.2,3.2],clear:2.2,cluster:2},
+  {file:Y+'Bush_2_A_Color1.glb',count:18,h:[.6,1],clear:1.9,cluster:2},
+  {file:K+'lily_large.glb',count:18,h:[.05,.08],water:true},
+  {file:K+'lily_small.glb',count:18,h:[.04,.06],water:true}]},
+ ember:{label:'Ember Hollow',ground:'any',items:[
+  {file:Q+'DeadTree_1.glb',count:10,h:[2,3],clear:2.3,cluster:2},
+  {file:Q+'DeadTree_3.glb',count:8,h:[1.8,2.6],clear:2.3},
+  {file:Q+'DeadTree_5.glb',count:8,h:[1.6,2.4],clear:2.3},
+  {file:Y+'Tree_Bare_1_A_Color1.glb',count:8,h:[1.6,2.4],clear:2.2,tint:'#8a6a78'},
+  {file:K+'stump_old.glb',count:12,h:[.35,.55],clear:1.9},
+  {file:K+'rock_tallB.glb',count:12,h:[.8,1.6],clear:2,tint:'#9a7090',cluster:3},
+  {file:K+'rock_tallE.glb',count:10,h:[.7,1.3],clear:2,tint:'#a07896'},
+  {file:Y+'Rock_3_E_Color1.glb',count:14,h:[.4,.8],clear:1.9,tint:'#c49ab6'},
+  {file:Q+'Grass_Wispy_Tall.glb',count:40,h:[.4,.7],clear:1.8,tint:'#c98a52',cluster:4},
+  {file:K+'flower_redA.glb',count:24,h:[.3,.45],clear:1.8,cluster:4,glow:'#ff6a2a'}]},
+ woods:{label:'Pocket Woods',ground:'green',items:[
+  {file:Y+'Tree_1_A_Color1.glb',count:22,h:[2.4,3.4],clear:2.4,cluster:3},
+  {file:Y+'Tree_2_A_Color1.glb',count:16,h:[2.2,3.2],clear:2.4,cluster:3},
+  {file:Y+'Tree_3_A_Color1.glb',count:14,h:[2.6,3.6],clear:2.4,cluster:2},
+  {file:K+'tree_pineRoundC.glb',count:16,h:[2.4,3.4],clear:2.4,cluster:3},
+  {file:K+'tree_fat_fall.glb',count:10,h:[2,2.8],clear:2.4,cluster:2},
+  {file:K+'tree_default_fall.glb',count:10,h:[2,2.8],clear:2.4,cluster:2},
+  {file:Y+'Bush_1_A_Color1.glb',count:26,h:[.5,.9],clear:1.9,cluster:3},
+  {file:K+'log_stack.glb',count:5,h:[.45,.6],clear:2},
+  {file:K+'stump_round.glb',count:8,h:[.3,.45],clear:1.9},
+  {file:Q+'Mushroom_Common.glb',count:24,h:[.2,.35],clear:1.8,cluster:4},
+  {file:K+'crop_pumpkin.glb',count:14,h:[.3,.45],clear:1.9,cluster:5},
+  {file:T+'lantern.glb',count:6,h:[1.1,1.3],clear:1.9},
+  {file:T+'cart.glb',count:2,h:[.9,1.1],clear:2.2}]},
+ crown:{label:'Crown Garden',ground:'green',items:[
+  {file:K+'tree_cone.glb',count:18,h:[2,3],clear:2.2,cluster:2},
+  {file:K+'statue_column.glb',count:6,h:[1.6,2],clear:2.8},
+  {file:K+'statue_obelisk.glb',count:3,h:[1.8,2.2],clear:2.8},
+  {file:Q+'Bush_Common_Flowers.glb',count:32,h:[.8,1.15],clear:1.9,cluster:3,tint:'#d8ffb0'},
+  {file:Q+'Flower_3_Group.glb',count:46,h:[.45,.7],clear:1.8,cluster:5},
+  {file:Q+'Flower_4_Group.glb',count:46,h:[.45,.7],clear:1.8,cluster:5},
+  {file:T+'stall-bench.glb',count:4,h:[.5,.6],clear:2.4}]},
+};

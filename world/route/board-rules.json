@@ -1,0 +1,661 @@
+{
+  "version": "wish-trail-v4-phase-dice",
+  "status": "local-match-live",
+  "start": 0,
+  "finish": 144,
+  "sectionCount": 144,
+  "defaultTile": "trail",
+  "resources": {
+    "name": "Sparks",
+    "initial": 6,
+    "cap": 15,
+    "minimum": 0,
+    "turnIncome": 1,
+    "transferable": false,
+    "purchasable": false
+  },
+  "deck": {
+    "file": "cards.json",
+    "copiesPerDesign": 2,
+    "designCount": 18,
+    "totalCards": 36,
+    "initialHand": 2,
+    "handLimit": 3,
+    "refreshEveryOwnTurns": 3,
+    "marketSize": 0,
+    "marketCost": 0,
+    "overflow": "Owner chooses one card to discard, including the new card.",
+    "reshuffle": "Only existing discard cards; exclude hands, market, resolving and set-aside cards.",
+    "marketDraw": 2,
+    "marketKeep": 1,
+    "marketRemainder": "discard"
+  },
+  "turn": {
+    "dice": "phase-dependent",
+    "sides": 6,
+    "choose": "middle-phase-only",
+    "proactiveCards": 1,
+    "reactionsPerOwnTurnCycle": 1,
+    "incomingPranksPerOwnTurnCycle": 1,
+    "minimumMovement": 1,
+    "resolveLandingOnce": true,
+    "triggerSecondaryDestination": false,
+    "finish": "reach-or-cross-normal-movement-then-throne-trial",
+    "skipTurns": false,
+    "overshoot": "clamp-to-finish",
+    "cardWindow": "after-landing",
+    "secondaryFinishCap": 143,
+    "order": [
+      "income-and-refresh",
+      "normal-die",
+      "normal-move",
+      "landing-effect-or-throne-trial",
+      "one-optional-card-unless-trial-or-win",
+      "pass"
+    ],
+    "positionTies": "Only a unique highest/lowest position is first/last for card effects.",
+    "movementModeSource": "position-at-start-of-turn",
+    "movementPhases": [
+      {
+        "from": 0,
+        "to": 48,
+        "mode": "single",
+        "dice": 1
+      },
+      {
+        "from": 49,
+        "to": 96,
+        "mode": "choose",
+        "dice": 2,
+        "choose": 1
+      },
+      {
+        "from": 97,
+        "to": 143,
+        "mode": "sum",
+        "dice": 2
+      }
+    ]
+  },
+  "tiles": [
+    {
+      "number": 4,
+      "type": "spark",
+      "name": "Spark cache",
+      "effect": "spark"
+    },
+    {
+      "number": 7,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 10,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 12,
+      "type": "spark",
+      "name": "Spark cache",
+      "effect": "spark"
+    },
+    {
+      "number": 15,
+      "type": "draw",
+      "name": "Pocket crate",
+      "effect": "draw"
+    },
+    {
+      "number": 18,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 21,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 24,
+      "type": "spark",
+      "name": "Spark cache",
+      "effect": "spark"
+    },
+    {
+      "number": 26,
+      "type": "portal",
+      "name": "Twin portal",
+      "effect": "portal",
+      "pairColor": "mint"
+    },
+    {
+      "number": 29,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 32,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 35,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 36,
+      "type": "well",
+      "name": "Wishing well",
+      "effect": "well"
+    },
+    {
+      "number": 38,
+      "type": "spark",
+      "name": "Spark cache",
+      "effect": "spark"
+    },
+    {
+      "number": 39,
+      "type": "portal",
+      "name": "Twin portal",
+      "effect": "portal",
+      "pairColor": "mint"
+    },
+    {
+      "number": 40,
+      "type": "draw",
+      "name": "Pocket crate",
+      "effect": "draw"
+    },
+    {
+      "number": 44,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 47,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 52,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 55,
+      "type": "spark",
+      "name": "Spark cache",
+      "effect": "spark"
+    },
+    {
+      "number": 58,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 61,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 64,
+      "type": "draw",
+      "name": "Pocket crate",
+      "effect": "draw"
+    },
+    {
+      "number": 66,
+      "type": "portal",
+      "name": "Twin portal",
+      "effect": "portal",
+      "pairColor": "blue"
+    },
+    {
+      "number": 68,
+      "type": "trap",
+      "name": "Bramble trap",
+      "effect": "trap",
+      "amount": 2
+    },
+    {
+      "number": 71,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 73,
+      "type": "spark",
+      "name": "Spark cache",
+      "effect": "spark"
+    },
+    {
+      "number": 76,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 79,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 82,
+      "type": "portal",
+      "name": "Twin portal",
+      "effect": "portal",
+      "pairColor": "blue"
+    },
+    {
+      "number": 85,
+      "type": "draw",
+      "name": "Pocket crate",
+      "effect": "draw"
+    },
+    {
+      "number": 88,
+      "type": "well",
+      "name": "Wishing well",
+      "effect": "well"
+    },
+    {
+      "number": 89,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 92,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 94,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 99,
+      "type": "draw",
+      "name": "Pocket crate",
+      "effect": "draw"
+    },
+    {
+      "number": 101,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 103,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 104,
+      "type": "portal",
+      "name": "Twin portal",
+      "effect": "portal",
+      "pairColor": "violet"
+    },
+    {
+      "number": 106,
+      "type": "trap",
+      "name": "Bramble trap",
+      "effect": "trap",
+      "amount": 3
+    },
+    {
+      "number": 108,
+      "type": "spark",
+      "name": "Spark cache",
+      "effect": "spark"
+    },
+    {
+      "number": 111,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 112,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 114,
+      "type": "setback",
+      "name": "Root slide",
+      "effect": "setback"
+    },
+    {
+      "number": 116,
+      "type": "portal",
+      "name": "Twin portal",
+      "effect": "portal",
+      "pairColor": "violet"
+    },
+    {
+      "number": 118,
+      "type": "trap",
+      "name": "Bramble trap",
+      "effect": "trap",
+      "amount": 3
+    },
+    {
+      "number": 119,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 121,
+      "type": "market",
+      "name": "Pocket Shop",
+      "effect": "market"
+    },
+    {
+      "number": 124,
+      "type": "draw",
+      "name": "Pocket crate",
+      "effect": "draw"
+    },
+    {
+      "number": 127,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 128,
+      "type": "good",
+      "name": "Lucky chest",
+      "effect": "good"
+    },
+    {
+      "number": 132,
+      "type": "trap",
+      "name": "Bramble trap",
+      "effect": "trap",
+      "amount": 4
+    },
+    {
+      "number": 135,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 138,
+      "type": "setback",
+      "name": "Root slide",
+      "effect": "setback"
+    },
+    {
+      "number": 141,
+      "type": "bad",
+      "name": "Jinx chest",
+      "effect": "bad"
+    },
+    {
+      "number": 142,
+      "type": "trap",
+      "name": "Bramble trap",
+      "effect": "trap",
+      "amount": 2
+    },
+    {
+      "number": 144,
+      "type": "finish",
+      "name": "Wish Throne",
+      "effect": "finish"
+    }
+  ],
+  "links": [
+    {
+      "id": "mint-26",
+      "from": 26,
+      "to": 39,
+      "type": "portal",
+      "cost": 0,
+      "optional": false,
+      "pairColor": "mint",
+      "name": "Mint twin portal"
+    },
+    {
+      "id": "mint-39",
+      "from": 39,
+      "to": 26,
+      "type": "portal",
+      "cost": 0,
+      "optional": false,
+      "pairColor": "mint",
+      "name": "Mint twin portal"
+    },
+    {
+      "id": "blue-66",
+      "from": 66,
+      "to": 82,
+      "type": "portal",
+      "cost": 0,
+      "optional": false,
+      "pairColor": "blue",
+      "name": "Blue twin portal"
+    },
+    {
+      "id": "blue-82",
+      "from": 82,
+      "to": 66,
+      "type": "portal",
+      "cost": 0,
+      "optional": false,
+      "pairColor": "blue",
+      "name": "Blue twin portal"
+    },
+    {
+      "id": "violet-104",
+      "from": 104,
+      "to": 116,
+      "type": "portal",
+      "cost": 0,
+      "optional": false,
+      "pairColor": "violet",
+      "name": "Violet twin portal"
+    },
+    {
+      "id": "violet-116",
+      "from": 116,
+      "to": 104,
+      "type": "portal",
+      "cost": 0,
+      "optional": false,
+      "pairColor": "violet",
+      "name": "Violet twin portal"
+    },
+    {
+      "id": "root-slide",
+      "from": 114,
+      "to": 107,
+      "type": "setback",
+      "cost": 0,
+      "optional": false,
+      "name": "Root slide"
+    },
+    {
+      "id": "last-slip",
+      "from": 138,
+      "to": 130,
+      "type": "setback",
+      "cost": 0,
+      "optional": false,
+      "name": "Last little slip"
+    }
+  ],
+  "effects": {
+    "trail": {
+      "action": "none"
+    },
+    "spark": {
+      "action": "gain-sparks",
+      "amount": 3
+    },
+    "draw": {
+      "action": "draw-card",
+      "amount": 1
+    },
+    "market": {
+      "action": "draw-two-keep-one",
+      "cost": 0,
+      "draw": 2,
+      "keep": 1,
+      "remainder": "discard",
+      "oncePerNormalLanding": true
+    },
+    "trap": {
+      "action": "move-back",
+      "amount": 3,
+      "defendable": true,
+      "triggerDestination": false
+    },
+    "setback": {
+      "action": "forced-directed-link",
+      "defendable": true,
+      "triggerDestination": false
+    },
+    "well": {
+      "action": "choose-safe-or-roll",
+      "safeGain": 1,
+      "sides": 6,
+      "outcomes": [
+        {
+          "faces": [
+            1,
+            2
+          ],
+          "sparks": -2
+        },
+        {
+          "faces": [
+            3,
+            4
+          ],
+          "sparks": 1
+        },
+        {
+          "faces": [
+            5,
+            6
+          ],
+          "sparks": 4
+        }
+      ],
+      "defendable": false
+    },
+    "finish": {
+      "action": "throne-trial-on-reach-or-cross-normal-movement",
+      "overshoot": "clamp-to-finish",
+      "secondaryMovementCap": 143
+    },
+    "portal": {
+      "action": "mandatory-paired-link",
+      "triggerDestination": false,
+      "defendable": false
+    },
+    "good": {
+      "action": "draw-event",
+      "deck": "good",
+      "discardAfterResolution": true,
+      "triggerDestination": false
+    },
+    "bad": {
+      "action": "draw-event",
+      "deck": "bad",
+      "discardAfterResolution": true,
+      "defendable": true,
+      "triggerDestination": false
+    }
+  },
+  "presentation": {
+    "path": "wider-curved-shared-edge-sections",
+    "route": "bottom-entry-climb-then-irregular-loops-curls-long-straights-and-zigzags",
+    "arena": "central-existing-trampoline",
+    "finish": "wish-throne-adjacent-to-arena",
+    "linkLabels": "source-arrow-destination",
+    "difficulty": "early-supplies-late-risk"
+  },
+  "finishName": "Wish Throne",
+  "throneTrial": {
+    "dice": 1,
+    "sides": 6,
+    "successMin": 4,
+    "failurePosition": 142,
+    "failureGrants": "seal-only-when-chosen",
+    "sealedArrival": "reach-or-cross-normal-movement-wins-without-trial",
+    "timing": "same-turn-immediately-after-arrival",
+    "defendable": false,
+    "modifiable": false,
+    "triggerFailureDestination": false,
+    "sparkCost": 0,
+    "firstFailure": "stay-at144-and-choose-seal-or-risk",
+    "riskFailurePosition": 136,
+    "maxRerollsPerArrival": 1,
+    "riskFailureGrantsSeal": false,
+    "firstFailureEndsTurn": false,
+    "sealChoiceEndsTurn": true,
+    "riskFailureEndsTurn": true
+  },
+  "eventDecks": {
+    "file": "events.json",
+    "good": 12,
+    "bad": 12,
+    "resolve": "immediate-then-discard",
+    "reshuffle": "own-discard-only"
+  },
+  "phases": [
+    {
+      "id": "welcome",
+      "name": "Pocket Meadows",
+      "from": 1,
+      "to": 48,
+      "description": "Stock your pockets. Shops and friendly finds lead the way.",
+      "color": "#a9d7be"
+    },
+    {
+      "id": "wilds",
+      "name": "Crooked Wilds",
+      "from": 49,
+      "to": 96,
+      "description": "Good finds meet bad luck. Portals reward careful timing.",
+      "color": "#eedb94"
+    },
+    {
+      "id": "ascent",
+      "name": "Throne Ascent",
+      "from": 97,
+      "to": 143,
+      "description": "More cursed chests and short setbacks. Save a defense for the climb.",
+      "color": "#e6a08b"
+    }
+  ]
+}

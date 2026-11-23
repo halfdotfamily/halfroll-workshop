@@ -1,0 +1,6 @@
+{
+  "name": "halfroll-workshop",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node workshop/serve.mjs" }
+}

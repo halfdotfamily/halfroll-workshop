@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Halfroll Workshop</title>
+  <link rel="icon" href="./assets/halfroll-dice-v1.svg">
+  <link rel="stylesheet" href="./workshop/workshop.css">
+  <script type="importmap">{"imports":{"three":"./assets/vendor/three/three.module.js","three/addons/":"./assets/vendor/three/addons/"}}</script>
+</head>
+<body>
+  <header>
+    <img src="./assets/halfroll-logo.svg" width="145" height="42" alt="Halfroll">
+    <nav aria-label="Workshop sections">
+      <button data-panel="island" aria-pressed="true">Island</button>
+      <button data-panel="tiles" aria-pressed="false">Tiles</button>
+      <button data-panel="dice" aria-pressed="false">Dice</button>
+      <button data-panel="cards" aria-pressed="false">Cards</button>
+      <button data-panel="pandora" aria-pressed="false">Pandora</button>
+      <button data-panel="rules" aria-pressed="false">Rules</button>
+      <button data-panel="race" aria-pressed="false">Practice</button>
+    </nav>
+  </header>
+  <main>
+    <div class="workspace">
+      <section class="island" id="scene" aria-label="Interactive Halfroll island">
+        <div id="island-view"></div>
+        <div class="map-toolbar"><button id="map-reset" type="button" disabled>Fit island</button><button id="map-rotate" type="button" aria-pressed="false" disabled>Orbit</button></div>
+        <span class="tile-marker" id="tile-marker" aria-hidden="true" hidden></span>
+        <p id="map-status" role="status">Loading island…</p>
+      </section>
+      <section class="paper" aria-labelledby="panel-title">
+        <h1 id="panel-title">Island</h1>
+        <div id="panel"></div>
+        <p id="feedback" role="status"></p>
+      </section>
+    </div>
+    <section class="sources" aria-labelledby="sources-title">
+      <h2 id="sources-title">Source files</h2>
+      <div id="sources" aria-live="polite"></div>
+    </section>
+  </main>
+  <dialog id="source-dialog" aria-labelledby="source-title">
+    <div class="source-toolbar">
+      <div><h2 id="source-title"></h2><code id="source-path"></code></div>
+      <form method="dialog"><button type="submit" aria-label="Close source">×</button></form>
+    </div>
+    <pre tabindex="0" aria-label="Source code"><code id="source-code"></code></pre>
+  </dialog>
+  <script type="module" src="./workshop/workshop.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "mossfall-rope-footbridge",
+  "source_objects": 228,
+  "meshes": 6,
+  "triangles": 22480,
+  "bytes": 854524,
+  "blender_bounds": {
+    "min": [
+      -3.135,
+      -1.515,
+      -0.18
+    ],
+    "max": [
+      3.134,
+      1.519,
+      1.55
+    ]
+  }
+}

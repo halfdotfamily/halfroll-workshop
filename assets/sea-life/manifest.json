@@ -1,0 +1,69 @@
+{
+  "author": "Quaternius",
+  "pack": "Animated Fish Pack",
+  "license": "CC0-1.0",
+  "source": "https://quaternius.com/packs/animatedfish.html",
+  "mirror": "https://opengameart.org/content/animated-fish",
+  "models": [
+    {
+      "id": "whale",
+      "source": "Whale.blend",
+      "file": "whale.glb",
+      "bytes": 65360,
+      "sourcePolygonUpperBound": 480,
+      "clips": [
+        "Swim"
+      ]
+    },
+    {
+      "id": "dolphin",
+      "source": "Dolphin.blend",
+      "file": "dolphin.glb",
+      "bytes": 59528,
+      "sourcePolygonUpperBound": 456,
+      "clips": [
+        "Swim"
+      ]
+    },
+    {
+      "id": "shark",
+      "source": "Shark.blend",
+      "file": "shark.glb",
+      "bytes": 72200,
+      "sourcePolygonUpperBound": 656,
+      "clips": [
+        "Swim"
+      ]
+    },
+    {
+      "id": "manta",
+      "source": "Manta ray.blend",
+      "file": "manta.glb",
+      "bytes": 97276,
+      "sourcePolygonUpperBound": 736,
+      "clips": [
+        "Swim"
+      ]
+    },
+    {
+      "id": "fish-blue",
+      "source": "Fish1.blend",
+      "file": "fish-blue.glb",
+      "bytes": 66080,
+      "sourcePolygonUpperBound": 590,
+      "clips": [
+        "Swim"
+      ]
+    },
+    {
+      "id": "fish-striped",
+      "source": "Fish2.blend",
+      "file": "fish-striped.glb",
+      "bytes": 57904,
+      "sourcePolygonUpperBound": 540,
+      "clips": [
+        "Swim.001"
+      ]
+    }
+  ]
+}

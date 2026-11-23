@@ -1,0 +1,128 @@
+{
+  "version": 2,
+  "copiesPerDesign": 2,
+  "good": [
+    {
+      "id": "friendly-gust",
+      "name": "Friendly Gust",
+      "text": "Move forward 3. Stop at 143; the arrival section does not activate.",
+      "effect": {
+        "kind": "move",
+        "amount": 3
+      },
+      "copies": 2
+    },
+    {
+      "id": "pocket-sunshine",
+      "name": "Pocket Sunshine",
+      "text": "Gain 3 Sparks, up to 15.",
+      "effect": {
+        "kind": "sparks",
+        "amount": 3
+      },
+      "copies": 2
+    },
+    {
+      "id": "forgotten-parcel",
+      "name": "Forgotten Parcel",
+      "text": "Draw one item card. Choose a discard if your hand exceeds 3.",
+      "effect": {
+        "kind": "draw",
+        "amount": 1
+      },
+      "copies": 2
+    },
+    {
+      "id": "lucky-bubble",
+      "name": "Lucky Bubble",
+      "text": "Arm one shield. If you already have one, keep it; shields do not stack.",
+      "effect": {
+        "kind": "shield"
+      },
+      "copies": 2
+    },
+    {
+      "id": "mossy-shortcut",
+      "name": "Mossy Shortcut",
+      "text": "Move forward 2. Stop at 143; the arrival section does not activate.",
+      "effect": {
+        "kind": "move",
+        "amount": 2
+      },
+      "copies": 2
+    },
+    {
+      "id": "tea-money",
+      "name": "Tea Money",
+      "text": "Gain 2 Sparks, up to 15.",
+      "effect": {
+        "kind": "sparks",
+        "amount": 2
+      },
+      "copies": 2
+    }
+  ],
+  "bad": [
+    {
+      "id": "loose-pebbles",
+      "name": "Loose Pebbles",
+      "text": "Move back 2, no farther than start. The arrival section does not activate.",
+      "effect": {
+        "kind": "move",
+        "amount": -2
+      },
+      "copies": 2
+    },
+    {
+      "id": "bramble-tangle",
+      "name": "Bramble Tangle",
+      "text": "Move back 3, no farther than start. The arrival section does not activate.",
+      "effect": {
+        "kind": "move",
+        "amount": -3
+      },
+      "copies": 2
+    },
+    {
+      "id": "wrong-signpost",
+      "name": "Wrong Signpost",
+      "text": "Move back 4, no farther than start. The arrival section does not activate.",
+      "effect": {
+        "kind": "move",
+        "amount": -4
+      },
+      "copies": 2
+    },
+    {
+      "id": "cloud-slide",
+      "name": "Cloud Slide",
+      "text": "Move back 6, no farther than start. The arrival section does not activate.",
+      "effect": {
+        "kind": "move",
+        "amount": -6
+      },
+      "copies": 2
+    },
+    {
+      "id": "leaky-pouch",
+      "name": "Leaky Pouch",
+      "text": "Lose up to 3 Sparks. Your balance cannot go below zero.",
+      "effect": {
+        "kind": "sparks",
+        "amount": -3
+      },
+      "copies": 2
+    },
+    {
+      "id": "curious-crow",
+      "name": "Curious Crow",
+      "text": "Choose one hand card to discard. If your hand is empty, nothing happens.",
+      "effect": {
+        "kind": "discard",
+        "amount": 1,
+        "choice": "owner"
+      },
+      "copies": 2
+    }
+  ]
+}

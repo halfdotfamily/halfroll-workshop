@@ -1,0 +1,309 @@
+[
+  {
+    "id": "spring-step",
+    "name": "Spring Step",
+    "type": "mobility",
+    "timing": "After landing",
+    "cost": 3,
+    "copies": 2,
+    "text": "Move forward 3. Stop before the throne; your new section does not activate.",
+    "flavor": "A little spring in your very small step.",
+    "icon": "spring",
+    "character": 0,
+    "effect": {
+      "kind": "move",
+      "amount": 3
+    }
+  },
+  {
+    "id": "paper-glider",
+    "name": "Paper Glider",
+    "type": "mobility",
+    "timing": "After landing",
+    "cost": 3,
+    "copies": 2,
+    "text": "If your normal die showed 1 or 2, move forward 5. Stop before the throne; no new landing effect.",
+    "flavor": "Fold here. Believe a little.",
+    "icon": "glider",
+    "character": 1,
+    "effect": {
+      "kind": "move",
+      "amount": 5,
+      "condition": "normalDieAtMost2"
+    }
+  },
+  {
+    "id": "pocket-compass",
+    "name": "Pocket Compass",
+    "type": "mobility",
+    "timing": "After landing",
+    "cost": 0,
+    "copies": 2,
+    "text": "Move back 1 or 2. Choose your distance; the new section does not activate.",
+    "flavor": "The scenic route is occasionally the clever one.",
+    "icon": "compass",
+    "character": 2,
+    "effect": {
+      "kind": "moveChoice",
+      "amounts": [
+        -1,
+        -2
+      ]
+    }
+  },
+  {
+    "id": "second-bounce",
+    "name": "Second Bounce",
+    "type": "mobility",
+    "timing": "After landing",
+    "cost": 3,
+    "copies": 2,
+    "text": "Roll one bonus die and move forward its value. Stop before the throne. This bonus move cannot trigger a section or win.",
+    "flavor": "The trampoline has one more opinion.",
+    "icon": "dice",
+    "character": 3,
+    "effect": {
+      "kind": "bonusDieMove",
+      "sides": 6
+    }
+  },
+  {
+    "id": "catch-up-kite",
+    "name": "Catch-up Kite",
+    "type": "mobility",
+    "timing": "After landing",
+    "cost": 2,
+    "copies": 2,
+    "text": "If you are uniquely last and at least 10 sections behind the front position, move forward 4. Stop before the throne; no landing effect.",
+    "flavor": "A friendly gust for the long way home.",
+    "icon": "kite",
+    "character": 4,
+    "effect": {
+      "kind": "move",
+      "amount": 4,
+      "condition": "uniqueLastAndGap10"
+    }
+  },
+  {
+    "id": "bridge-pass",
+    "name": "Bridge Pass",
+    "type": "mobility",
+    "timing": "After landing",
+    "cost": 0,
+    "copies": 2,
+    "text": "Move to the next portal if it is within 6 sections ahead. Do not activate it. This move cannot reach the throne.",
+    "flavor": "The bridge keeper likes your little hat.",
+    "icon": "bridge",
+    "character": 5,
+    "effect": {
+      "kind": "nextPortal",
+      "range": 6
+    }
+  },
+  {
+    "id": "bubble-coat",
+    "name": "Bubble Coat",
+    "type": "defense",
+    "timing": "After landing",
+    "cost": 2,
+    "copies": 2,
+    "text": "Arm one shield. It automatically blocks the next harmful board event or rival card, then pops. Shields do not stack.",
+    "flavor": "Light rain. Heavy nonsense.",
+    "icon": "bubble",
+    "character": 0,
+    "effect": {
+      "kind": "shield"
+    }
+  },
+  {
+    "id": "leaf-umbrella",
+    "name": "Leaf Umbrella",
+    "type": "defense",
+    "timing": "Reaction",
+    "cost": 1,
+    "copies": 2,
+    "text": "Cancel one harmful board effect: a trap, setback or bad-chest card. Stay on the source section and keep any threatened Sparks or cards.",
+    "flavor": "Locally grown weather insurance.",
+    "icon": "umbrella",
+    "character": 1,
+    "effect": {
+      "kind": "cancel",
+      "sources": [
+        "trap",
+        "setback",
+        "badEvent"
+      ]
+    }
+  },
+  {
+    "id": "nope-stamp",
+    "name": "Nope Stamp",
+    "type": "defense",
+    "timing": "Reaction",
+    "cost": 2,
+    "copies": 2,
+    "text": "Cancel one rival card targeting you. Their card and Sparks are still spent.",
+    "flavor": "Politely, absolutely, no.",
+    "icon": "stamp",
+    "character": 2,
+    "effect": {
+      "kind": "cancel",
+      "sources": [
+        "rivalCard"
+      ]
+    }
+  },
+  {
+    "id": "soft-landing",
+    "name": "Soft Landing",
+    "type": "defense",
+    "timing": "Reaction",
+    "cost": 0,
+    "copies": 2,
+    "text": "Reduce one harmful backward move by 3, to a minimum of 0. Your final section does not activate.",
+    "flavor": "Moss has been preparing for this moment.",
+    "icon": "cushion",
+    "character": 3,
+    "effect": {
+      "kind": "reduceBackward",
+      "amount": 3
+    }
+  },
+  {
+    "id": "rug-tug",
+    "name": "Rug Tug",
+    "type": "prank",
+    "timing": "After landing",
+    "cost": 3,
+    "copies": 2,
+    "text": "Choose a rival 1–6 sections ahead. Move them back 3. Their landing does not activate; defense may block this.",
+    "flavor": "It was a very small rug.",
+    "icon": "rug",
+    "character": 4,
+    "effect": {
+      "kind": "rivalMove",
+      "amount": -3,
+      "range": 6,
+      "aheadOnly": true
+    }
+  },
+  {
+    "id": "sticky-shoes",
+    "name": "Sticky Shoes",
+    "type": "prank",
+    "timing": "After landing",
+    "cost": 2,
+    "copies": 2,
+    "text": "Choose a rival within 8 sections. They slip back 2 now. Their landing does not activate; defense may block this.",
+    "flavor": "Someone stepped in the group chat.",
+    "icon": "boot",
+    "character": 5,
+    "effect": {
+      "kind": "rivalMove",
+      "amount": -2,
+      "range": 8
+    }
+  },
+  {
+    "id": "pocket-audit",
+    "name": "Pocket Audit",
+    "type": "prank",
+    "timing": "After landing",
+    "cost": 1,
+    "copies": 2,
+    "text": "Choose a rival within 4 sections who has Sparks. Transfer up to 2 Sparks to you, within your cap. Defense may block this.",
+    "flavor": "Just counting. Very closely.",
+    "icon": "magnifier",
+    "character": 0,
+    "effect": {
+      "kind": "rivalTransferSparks",
+      "amount": 2,
+      "range": 4
+    }
+  },
+  {
+    "id": "windy-pockets",
+    "name": "Windy Pockets",
+    "type": "prank",
+    "timing": "After landing",
+    "cost": 2,
+    "copies": 2,
+    "text": "Choose a rival within 6 sections who has a card. They discard one random hand card. Resolve defense before revealing that card.",
+    "flavor": "A breeze with terrible manners.",
+    "icon": "wind",
+    "character": 1,
+    "effect": {
+      "kind": "rivalDiscard",
+      "amount": 1,
+      "range": 6,
+      "choice": "random"
+    }
+  },
+  {
+    "id": "pocket-picnic",
+    "name": "Pocket Picnic",
+    "type": "economy",
+    "timing": "After landing",
+    "cost": 0,
+    "copies": 2,
+    "text": "Gain 3 Sparks, up to the limit of 15.",
+    "flavor": "Tiny sandwiches. Excellent morale.",
+    "icon": "picnic",
+    "character": 2,
+    "effect": {
+      "kind": "sparks",
+      "amount": 3
+    }
+  },
+  {
+    "id": "curiosity-bag",
+    "name": "Curiosity Bag",
+    "type": "economy",
+    "timing": "After landing",
+    "cost": 1,
+    "copies": 2,
+    "text": "Draw 2 item cards. Keep 1 and discard the other. If your hand exceeds 3, choose a card to discard.",
+    "flavor": "There is always one more pocket.",
+    "icon": "bag",
+    "character": 3,
+    "effect": {
+      "kind": "drawKeep",
+      "draw": 2,
+      "keep": 1
+    }
+  },
+  {
+    "id": "spare-parts",
+    "name": "Spare Parts",
+    "type": "economy",
+    "timing": "After landing",
+    "cost": 0,
+    "copies": 2,
+    "text": "Discard one other hand card. Gain 4 Sparks, up to the limit of 15.",
+    "flavor": "Nothing useless. Only future inventions.",
+    "icon": "tools",
+    "character": 4,
+    "effect": {
+      "kind": "salvage",
+      "discard": 1,
+      "amount": 4
+    }
+  },
+  {
+    "id": "swap-meet",
+    "name": "Swap Meet",
+    "type": "economy",
+    "timing": "After landing",
+    "cost": 1,
+    "copies": 2,
+    "text": "Set aside 1 or 2 other hand cards. Draw that many replacements, then discard the set-aside cards.",
+    "flavor": "Same pockets. New possibilities.",
+    "icon": "swap",
+    "character": 5,
+    "effect": {
+      "kind": "exchange",
+      "min": 1,
+      "max": 2
+    }
+  }
+]

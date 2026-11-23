@@ -1,0 +1,19 @@
+{
+  "name": "mossfall-half-arch-shrine",
+  "source_objects": 138,
+  "meshes": 11,
+  "triangles": 10460,
+  "bytes": 791912,
+  "blender_bounds": {
+    "min": [
+      -1.95,
+      -1.37,
+      0.0
+    ],
+    "max": [
+      1.95,
+      1.13,
+      4.28
+    ]
+  }
+}

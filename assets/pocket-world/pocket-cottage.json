@@ -1,0 +1,15 @@
+{
+  "author": "ROLL Race / original procedural Blender model",
+  "coordinateSystem": "glTF Y-up",
+  "front": "positive Z",
+  "baseY": 0,
+  "meshes": 11,
+  "features": [
+    "staggered cobalt shingles",
+    "oak framing",
+    "window flower boxes",
+    "masonry chimney",
+    "loft round window",
+    "porch steps"
+  ]
+}
