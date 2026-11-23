@@ -5,12 +5,15 @@ import {SELECTABLE_CHARACTERS, characterPortrait} from '../game/characters.js';
 import {renderCardArt} from '../game/card-presentation.js';
 import {mountMainWorld} from '../world/main-world.js';
 import {tileKey, tileKeySvg} from '../world/tile-key.js';
+import {previewCard, previewPandora} from './effect-previews.js';
 
 const $=selector=>document.querySelector(selector);
 const content=$('#panel');
 const scene=$('#scene'),marker=$('#tile-marker'),sourceDialog=$('#source-dialog');
 const headings={island:'Island',tiles:'Tiles',dice:'Dice',cards:'Cards',pandora:'Pandora',rules:'Rules',race:'Practice'};
-const scenePanels=new Set(['island','tiles','dice','race']);
+const effectPanels=new Set(['cards','pandora']);
+const scenePanels=new Set(['island','tiles','dice','race',...effectPanels]);
+const effectFraming={padding:2,minimumRadius:7};
 const board=game.boardForProfile('dense');
 const tiles=new Map(board.tiles.map(tile=>[tile.number,tile]));
 const cards=new Map(game.CARDS.map(card=>[card.id,card]));
@@ -19,8 +22,11 @@ const label=text=>String(text??'').replaceAll('-',' ');
 const action=(kind,title,value='')=>`<button type="button" data-action="${kind}" data-value="${value}">${esc(title)}</button>`;
 const cardFace=card=>`${renderCardArt(card)??''}<h3>${esc(card.name)}</h3><p>${esc(card.text)}</p>`;
 const heading=(title,body)=>`<h2>${esc(title)}</h2><p class="panel-description">${esc(body)}</p>`;
-let section='island', match=null, gameNumber=0, world=null, botTimer, selectedTile=10, late=false, event=null, pendingCard=null;
+let section='island', match=null, gameNumber=0, world=null, botTimer, selectedTile=10, late=false, pendingCard=null;
 let diceValues=[3,5],demoStage=null,practiceRoll=null,rollTicket=0,markerFrame=0,sourceAreas=[],landmark=null;
+let effectPreview=null,previewSerial=0;
+const lightOptions={auto:'Auto',cycle:'Cycle',dawn:'Dawn',day:'Day',sunset:'Sunset',night:'Night'};
+const weatherOptions={auto:'Changing',clear:'Clear',mist:'Mist',rain:'Rain',snow:'Snow'};
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let settings={count:4,character:SELECTABLE_CHARACTERS[0].id,seed:''};
 
@@ -120,7 +126,13 @@ function renderIsland(){
   ];
   return `<div class="landmarks" aria-label="Island landmarks">${entries.map(({key,title,detail,art})=>
     `<button data-action="landmark" data-value="${key}" aria-pressed="${landmark===key}" class="landmark"><span class="landmark-art">${art}</span><span><strong>${title}</strong><small>${detail}</small></span></button>`).join('')}</div>
-    <button class="primary explore-tiles" data-action="open-tiles">Explore tiles</button>`;
+    <button class="primary explore-tiles" data-action="open-tiles">Explore tiles</button>
+    <div class="setup atmosphere-controls">${atmosphereControl('light','Light',lightOptions,world?.getLightingPreset()??'auto')}
+      ${atmosphereControl('weather','Weather',weatherOptions,world?.getWeather()??'clear')}</div>`;
+}
+function atmosphereControl(id,title,options,selected){
+  return `<label>${title}<select data-atmosphere="${id}" ${world?'':'disabled'}>${Object.entries(options)
+    .map(([value,label])=>`<option value="${value}" ${value===selected?'selected':''}>${label}</option>`).join('')}</select></label>`;
 }
 function renderTiles(){
   const tile=tiles.get(selectedTile),type=selectedTile===0?'start':selectedTile===game.FINISH?'finish':tile?.type??'trail';
@@ -142,13 +154,13 @@ function renderDice(){
     </div><div class="dice-result" role="status" aria-label="Dice result">${demoStage?`<strong>${demoStage==='prepare'?'Preparing dice…':'Rolling…'}</strong>`:diceValues.map(value=>`<span>${value}</span>`).join('')}</div>
     <div class="actions"><button class="primary" data-action="demo-roll" ${disabled}>Roll dice</button></div>`;
 }
-function renderCards(){return `<div class="cards">${game.CARDS.map(card=>`<article class="game-card">${cardFace(card)}<p>${esc(card.type??card.timing)} · ${card.copies} ${card.copies===1?'copy':'copies'}</p></article>`).join('')}</div>`;}
+function renderCards(){return `<div class="cards">${game.CARDS.map(card=>`<article class="game-card">${cardFace(card)}
+  <button type="button" class="play-effect" data-action="preview-card" data-value="${esc(card.id)}" aria-label="Play ${esc(card.name)}">Play effect <span aria-hidden="true">▶</span></button></article>`).join('')}</div>`;}
+const eventPool=()=> (late?LATE_EVENTS:game.EVENTS).pandora;
 function renderPandora(){
-  const outcomes=(late?LATE_EVENTS:game.EVENTS).pandora;
-  return `${heading('Open the box','Preview the outcomes a racer can draw from a Pandora tile.')}
-    <div class="actions"><button data-action="pool" data-value="early" aria-pressed="${!late}">Early game</button><button data-action="pool" data-value="late" aria-pressed="${late}">Late game</button><button class="primary" data-action="pandora">Draw an event</button></div>
-    ${event?`<div class="event" data-pandora-result><h2>${esc(event.name)}</h2><p>${esc(event.text)}</p></div>`:''}
-    <ul class="event-list">${outcomes.map(item=>`<li><strong>${esc(item.name)}</strong> · ${item.weight}%<br>${esc(item.text)}</li>`).join('')}</ul>`;
+  return `<div class="actions event-actions"><button data-action="pool" data-value="early" aria-pressed="${!late}">Early game</button><button data-action="pool" data-value="late" aria-pressed="${late}">Late game</button><button class="primary" data-action="pandora">Draw an event</button></div>
+    <ul class="event-list">${eventPool().map(item=>`<li><div><strong>${esc(item.name)}</strong> <span class="event-weight">${item.weight}%</span><p>${esc(item.text)}</p></div>
+    <button type="button" class="play-effect" data-action="preview-event" data-value="${esc(item.id)}" aria-label="Play ${esc(item.name)}">Play <span aria-hidden="true">▶</span></button></li>`).join('')}</ul>`;
 }
 function renderRules(){return `${heading('From the start to the throne','Roll, use cards and race to finish. The order at the throne sets the places.')}
   <ol class="rule-list"><li>Choose a free starter card and ready up. Each racer begins with 5 Coins.</li>
@@ -162,11 +174,41 @@ function render(){
   $('#panel-title').textContent=headings[section];
   content.innerHTML=renderers[section]();
 }
+function showEffect(sceneData,item){
+  effectPreview={...sceneData,id:item.id,name:item.name};
+  updateEffectControls();
+  replayEffect();
+}
+function updateEffectControls(){
+  const rail=$('#effect-controls');
+  rail.hidden=!effectPanels.has(section);
+  const effectName=$('#effect-name');
+  effectName.textContent=effectPreview?.name??(section==='cards'?'Pick a card to play its effect':'Pick an event or draw one');
+  if(section==='pandora'&&effectPreview)effectName.dataset.pandoraResult='';
+  else delete effectName.dataset.pandoraResult;
+  $('#replay-effect').disabled=!effectPreview||!world;
+  content.querySelectorAll('.play-effect').forEach(button=>{
+    const active=effectPreview?.id===button.dataset.value;
+    button.closest('article,li').classList.toggle('effect-selected',active);
+  });
+}
+function replayEffect(){
+  if(!world||!effectPanels.has(section)||!effectPreview)return;
+  const {before,players,motion,cue}=effectPreview;
+  const base={matchId:`workshop-effect-${++previewSerial}`,rulesVersion:game.RULES_VERSION,boardProfile:'dense',
+    layout:'play',phase:'cards',activePlayer:0,localPlayerId:null,canRoll:false};
+  world.setState({...base,players:before,snapMotion:true});
+  world.advanceTime(0);
+  world.setState({...base,players,motion,cue,snapMotion:false});
+  world.focusPlayers(effectFraming);
+  if(innerWidth<=850&&scene.getBoundingClientRect().top<0)scene.scrollIntoView({block:'start',behavior:'instant'});
+}
 function presentScene({showDice=false}={}){
   if(!world||scene.hidden)return;
   world.refreshViewport();world.inspectSection(section==='tiles'?selectedTile:null);
   if(section==='tiles')world.focusSection(selectedTile);
   else if(section==='dice'){world.focusArena();if(showDice&&!demoStage)world.showDiceResult(diceValues);}
+  else if(effectPanels.has(section)&&effectPreview)world.focusPlayers(effectFraming);
   else world.resetCamera();
 }
 function trackTile(){
@@ -185,14 +227,14 @@ function revealSelectedTile(){
 function show(next){
   if(next===section)return;
   saveSettings();rollTicket++;if(demoStage||practiceRoll)world?.cancelRollPreparation();
-  demoStage=null;practiceRoll=null;landmark=null;section=next;
+  demoStage=null;practiceRoll=null;landmark=null;effectPreview=null;section=next;
   cancelAnimationFrame(markerFrame);markerFrame=0;marker.hidden=true;
   scene.hidden=!scenePanels.has(section);scene.setAttribute('aria-label',section==='dice'?'3D dice preview':'Interactive Halfroll island');
   document.querySelector('.workspace').dataset.view=section;
   document.querySelectorAll('[data-panel]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.panel===section)));
-  $('#map-reset').textContent=section==='tiles'?'Center tile':section==='dice'?'Center dice':'Fit island';
+  $('#map-reset').textContent=section==='tiles'?'Center tile':section==='dice'?'Center dice':effectPanels.has(section)?'Center scene':'Fit island';
   syncMap();renderSources();
-  render();content.scrollTop=0;$('#feedback').textContent='';
+  render();updateEffectControls();content.scrollTop=0;$('#feedback').textContent='';
   if(section==='tiles')revealSelectedTile();
   presentScene({showDice:true});if(!markerFrame)trackTile();
 }
@@ -258,8 +300,23 @@ function command(type,value){
   }
   if(type==='demo-roll')return rollPreview();
   if(type==='roll')return rollPractice();
-  if(type==='pool'){late=value==='late';event=null;return render();}
-  if(type==='pandora'){event=pandoraEventAt(crypto.getRandomValues(new Uint32Array(1))[0]/4294967296,late?LATE_PANDORA_START:0);return render();}
+  if(type==='preview-card'){
+    const card=cards.get(value);
+    if(card)showEffect(previewCard(card),card);
+    return;
+  }
+  if(type==='pool'){
+    if(late===(value==='late'))return;
+    late=value==='late';effectPreview=null;
+    syncMap();presentScene();render();updateEffectControls();
+    content.querySelector('[data-action=pool][aria-pressed=true]').focus({preventScroll:true});
+    return;
+  }
+  if(type==='pandora'||type==='preview-event'){
+    const event=type==='pandora'?pandoraEventAt(crypto.getRandomValues(new Uint32Array(1))[0]/4294967296,late?LATE_PANDORA_START:0):eventPool().find(item=>item.id===value);
+    if(event)showEffect(previewPandora(event,late),event);
+    return;
+  }
   if(type==='create')createRace();
   else if(type==='simulate')createRace(true);
   else if(type==='reset'){rollTicket++;if(practiceRoll)world?.cancelRollPreparation();practiceRoll=null;match=null;pendingCard=null;gameNumber++;}
@@ -289,21 +346,34 @@ function command(type,value){
 
 document.querySelector('nav').addEventListener('click',event=>{const panel=event.target.closest('[data-panel]')?.dataset.panel;if(panel)show(panel);});
 content.addEventListener('click',event=>{const button=event.target.closest('[data-action]');if(button)attempt(()=>command(button.dataset.action,button.dataset.value));});
+content.addEventListener('change',({target})=>{
+  if(target.dataset.atmosphere==='light')world?.setLightingPreset(target.value);
+  if(target.dataset.atmosphere==='weather')world?.setWeather(target.value);
+});
+$('#replay-effect').onclick=replayEffect;
 $('#map-reset').onclick=()=>{
   if(section==='island'&&landmark!==null){landmark=null;render();}
   presentScene();
 };
 $('#map-rotate').onclick=event=>{const on=event.currentTarget.getAttribute('aria-pressed')!=='true';world?.setTouchMode(on?'rotate':'pan');event.currentTarget.setAttribute('aria-pressed',String(on));};
 window.advanceTime=ms=>{if(!scene.hidden)world?.advanceTime(ms);};
-window.render_game_to_text=()=>JSON.stringify({panel:section,rendererReady:!!world,selection:selectedTile,landmark,dice:section==='dice'?diceValues:null,
-  diceStage:demoStage??practiceRoll,diceMotion:(section==='dice'||section==='race'&&practiceRoll)&&world?world.getDebugState().dice:null,
-  source:sourceDialog.open?$('#source-path').textContent:null,race:match?{mode:match.mode,phase:match.phase,players:match.players.map(p=>({name:p.name,pos:p.pos,place:p.finishPlace,hand:p.hand}))}:null});
+window.render_game_to_text=()=>{
+  const debug=effectPreview||section==='dice'||section==='race'&&practiceRoll?world?.getDebugState():null;
+  return JSON.stringify({panel:section,rendererReady:!!world,selection:selectedTile,landmark,dice:section==='dice'?diceValues:null,
+    atmosphere:world?.getAtmosphere(),effect:effectPreview?{id:effectPreview.id,take:previewSerial,cue:effectPreview.cue,motion:effectPreview.motion.tracks,
+      playback:debug?.extraEffects?.jobs?.map(({kind,stage,visible})=>({kind,stage,visible}))}:null,
+    diceStage:demoStage??practiceRoll,diceMotion:section==='dice'||section==='race'&&practiceRoll?debug?.dice:null,
+    source:sourceDialog.open?$('#source-path').textContent:null,race:match?{mode:match.mode,phase:match.phase,players:match.players.map(p=>({name:p.name,pos:p.pos,place:p.finishPlace,hand:p.hand}))}:null});
+};
 marker.textContent=String(selectedTile);
 render();
 
-mountMainWorld($('#island-view'),{onCell:number=>{if(section!=='dice')selectTile(number);},initialBoard:board,persistAtmosphere:false}).then(renderer=>{
+mountMainWorld($('#island-view'),{onCell:number=>{if(section!=='dice'&&!effectPanels.has(section))selectTile(number);},initialBoard:board,persistAtmosphere:false}).then(renderer=>{
   world=renderer;syncMap();presentScene({showDice:true});if(!markerFrame)trackTile();
   $('#map-status').textContent='';$('#map-reset').disabled=false;$('#map-rotate').disabled=false;
+  if(section==='island')render();
+  updateEffectControls();
+  replayEffect();
 }).catch(()=>{$('#island-view').replaceChildren();$('#map-status').textContent='3D preview unavailable. The route and race are still playable.';});
 
 function renderSources(){

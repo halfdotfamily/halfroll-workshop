@@ -1,5 +1,5 @@
 {
-  "modules": 168,
+  "modules": 169,
   "files": [
     ".gitattributes",
     ".gitignore",
@@ -328,6 +328,7 @@
     "game/throne-rules/rules.js",
     "index.html",
     "package.json",
+    "workshop/effect-previews.js",
     "workshop/serve.mjs",
     "workshop/workshop.css",
     "workshop/workshop.js",
@@ -405,6 +406,21 @@
     "world/zones.js"
   ],
   "areas": [
+    {
+      "label": "Card and Pandora previews",
+      "path": "workshop/effect-previews.js",
+      "panels": ["cards", "pandora"]
+    },
+    {
+      "label": "Weather",
+      "path": "world/world-weather.js",
+      "panels": ["island"]
+    },
+    {
+      "label": "Lighting",
+      "path": "world/world-lighting.js",
+      "panels": ["island"]
+    },
     {
       "label": "Terrain",
       "path": "world/terrain.js",

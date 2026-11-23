@@ -16,6 +16,8 @@ npm start
 
 Open the local URL printed by the server. Use **Island**, **Tiles**, **Dice**, **Cards**, **Pandora**, and **Rules** to explore. **Practice** starts a local race with bots. Enter a seed to replay a scenario.
 
+Play a card effect in **Cards**, or pick an outcome or draw one in **Pandora**. Both use the island as a 3D stage and have a **Replay** button. Set **Light** or **Weather** from **Island** to carry the look into the other tabs.
+
 ## Find the source
 
 | Change | Start here |
